@@ -8,4 +8,7 @@ export default defineConfig({
     global: "globalThis",
     "process.env": {},
   },
+  server: {
+    host: '0.0.0.0'
+}
 });

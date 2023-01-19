@@ -4,6 +4,7 @@ pragma solidity ^0.8.9;
 contract CrowdFunding {
     struct Campaign {
         address owner;
+        string projectId; // unique id of the project
         string title;
         string description;
         uint256 target;
@@ -18,7 +19,7 @@ contract CrowdFunding {
 
     uint256 public numberOfCampaigns = 0;
 
-    function createCampaign(address _owner, string memory _title, string memory _description, uint256 _target, uint256 _deadline, string memory _image) public returns (uint256) {
+    function createCampaign(address _owner, string memory _title, string memory _description, uint256 _target, uint256 _deadline, string memory _image, string memory _project_id) public returns (uint256) {
         Campaign storage campaign = campaigns[numberOfCampaigns];
 
         require(campaign.deadline < block.timestamp, "The deadline should be a date in the future.");
@@ -30,6 +31,8 @@ contract CrowdFunding {
         campaign.deadline = _deadline;
         campaign.amountCollected = 0;
         campaign.image = _image;
+        campaign.projectId = _project_id;
+        
 
         numberOfCampaigns++;
 

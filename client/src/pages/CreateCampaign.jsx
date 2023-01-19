@@ -7,6 +7,8 @@ import { money } from '../assets';
 import { CustomButton, FormField, Loader } from '../components';
 import { checkIfImage } from '../utils';
 
+import { v4 } from 'uuid';
+
 const CreateCampaign = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
@@ -17,15 +19,22 @@ const CreateCampaign = () => {
     description: '',
     target: '', 
     deadline: '',
-    image: ''
+    image: '',
+    projectId: '',
   });
+  
 
   const handleFormFieldChange = (fieldName, e) => {
     setForm({ ...form, [fieldName]: e.target.value })
   }
-
+  const handleUUID = () => {
+    const uuid = v4();
+    console.log(uuid);
+    setForm({ ...form, projectId: uuid })
+  }
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log(form);
 
     checkIfImage(form.image, async (exists) => {
       if(exists) {
@@ -108,6 +117,7 @@ const CreateCampaign = () => {
               btnType="submit"
               title="Submit new campaign"
               styles="bg-[#1dc071]"
+              handleClick={ ()=>handleUUID() }
             />
           </div>
       </form>
